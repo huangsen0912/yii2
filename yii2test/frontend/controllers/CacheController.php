@@ -2,7 +2,28 @@
 namespace frontend\controllers;
 use yii\web\Controller;
 class CacheController extends Controller{
+		/**
+		 * 页面缓存
+		 */
+	public function behaviors(){
+		//先于操作执行
+		//echo '1';
+		return [
+			[
+				'class'=>'yii\filters\PageCache',
+				'only'=>['index'],
+				'duration'=>1000,
+				'dependency'=>[
+					'class'=>'yii\caching\FileDependency',
+					'fileName'=>'dependency.txt',
+				]
+			]
+		];
+	}
+
+
 	public function actionPart(){
+		echo '6';
 
 		return $this->renderPartial('part');
 
