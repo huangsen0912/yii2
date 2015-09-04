@@ -6,6 +6,19 @@ use yii\web\Controller;
 use yii\web\Cookie;
 use app\models\Test;
   class IndexController extends Controller{
+    public function actionInsert(){
+        //Test->实例obj对象->save方法转化为数据->db
+      $test = new Test();
+      $test->id='bbbb';
+      $test->title="2222@qq.com";
+      $test->validate();
+      if($test->hasErrors()){
+        echo 'error';
+        die;
+      }
+      $test->save();
+
+    }
 
     public function actionDelete(){
       //一条数据从数据库中取出来，这条数据是个对象
