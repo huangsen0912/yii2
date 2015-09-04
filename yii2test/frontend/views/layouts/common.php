@@ -5,6 +5,13 @@
 	<title>Document</title>
 </head>
 <body>
-	<h1>common.php</h1>
+	<?=$this->blocks['block'];?>
+<br/>----------------------------------------------------------------<br/>
+	<?php if(isset($this->blocks['block'])):?>
+		<?=$this->blocks['block'];?>
+	<?php else:?>
+		<h1>common.php</h1>
+	<?php endif;?>
+	<?=$content;?>
 </body>
 </html>

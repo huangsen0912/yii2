@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use yii\web\Controller;
 use yii\web\Cookie;
   class IndexController extends Controller{
-	//public $layout='common.php';
+	public $layout='common';
   	public function actionView(){
   		//里面有javascript代码，要调用Html::encode转换实体
   		$hello_str="hello god <script>alert(123);</script>";
@@ -16,9 +16,9 @@ use yii\web\Cookie;
   		$data['data_hello_str']=$hello_str;
   		$data['data_array']=$arr;
   		
-  		return $this->renderPartial('view',$data);
-  		
-  		//return $this->render('view',$data);//$content中
+  		//return $this->renderPartial('view',$data);
+  		//布局视图需要用到render
+  		return $this->render('view',$data);//$content中
 
   	}
 
