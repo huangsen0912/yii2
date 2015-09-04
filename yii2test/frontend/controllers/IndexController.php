@@ -4,7 +4,31 @@ namespace frontend\controllers;
 //use
 use yii\web\Controller;
 use yii\web\Cookie;
+use app\models\Test;
   class IndexController extends Controller{
+	public function actionModel(){
+		//查询数据 and sql 注入
+		// $sql="select * from test where id=1"." or 1=1";
+		// $results=Test::findBySql($sql)->all();
+		//占位符->预处理preparement
+		// $sql="select * from test where id=:id";
+		// $results=Test::findBySql($sql,array(":id"=>1))->all();
+		//数组的方式
+		//$results = Test::find()->where(['id'=>2])->all();
+		//$results=Test::find()->where(['>','id','1'])->all();
+		//$results=Test::find()->where(['between','id','1','2'])->all();
+    //降低内存消耗第1种方式：对象在内存中的存储大，数组在内存中存储小一点，结果由对象转化为数组
+    //$results = Test::find()->where(['like','title','fdfd'])->asArray()->all();//asArray()转化为数组
+		//第2种方式：batch方式，批量查询
+    
+    foreach(Test::find()->batch(2) as $tests){
+        print_r(count($tests));
+    }
+    //print_r($results);
+
+	}
+
+
 	public $layout='common';
   	public function actionView(){
   		//里面有javascript代码，要调用Html::encode转换实体
