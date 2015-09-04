@@ -35,7 +35,25 @@ use yii\web\Controller;
   		//文件下载
   		//$res->headers->add('content-disposition','attachment;filename="a.jpg"');
   		//$res->sendFile("robots.txt");//路径是web下
+  		/**
+  		 * session处理
+  		 *session.save_path = "f:/wamp/tmp",session的保存路径
+  		 *ArrayAccess接口
+  		 */
+  		$session= \Yii::$app->session;
+  		$session->open(); //开启session
 
+  		if($session->isActive){
+  			echo 'session is active';
+  		}
+  		//session对象
+  		$session->set("username","张三");
+  		echo $session->get('username');
+  		$session->remove('username');
+  		//session数组
+  		// $session['username']="张三";
+  		// echo $session['username'];
+  		// unset($session['username']);
 
   	}
 
