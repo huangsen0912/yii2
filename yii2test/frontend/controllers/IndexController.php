@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 //use
 use yii\web\Controller;
+use yii\web\Cookie;
   class IndexController extends Controller{
 
   	public function actionIndex(){
@@ -55,6 +56,17 @@ use yii\web\Controller;
   		// echo $session['username'];
   		// unset($session['username']);
 
+  		/**
+  		 * cookie组件
+  		 * use yii\web\Cookie
+  		 */
+  		$cookies=\Yii::$app->response->cookies;
+  		$cookie=array('name'=>'username','value'=>'王五11');
+  		$cookies->add(new Cookie($cookie));
+  		//$cookies->remove('username');
+  		$cookies=$request->cookies;
+  		//echo $cookies->get('username');
+  		echo $cookies->getValue('username','default');
   	}
 
   }
