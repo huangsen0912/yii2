@@ -2,7 +2,11 @@
 namespace frontend\controllers;
 use yii\web\Controller;
 class CacheController extends Controller{
+	public function actionPart(){
 
+		return $this->renderPartial('part');
+
+	}
 	public function actionDepend(){
 		//文件依赖
 		 $cache = \YII::$app->cache;
