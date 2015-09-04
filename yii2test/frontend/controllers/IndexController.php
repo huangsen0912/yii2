@@ -6,6 +6,15 @@ use yii\web\Controller;
 use yii\web\Cookie;
 use app\models\Test;
   class IndexController extends Controller{
+
+    public function actionDelete(){
+      //一条数据从数据库中取出来，这条数据是个对象
+      // $result =Test::find()->where(['id'=>1])->all();
+      // $result[0]->delete(); //调用对象的删除方法
+      //print_r($result);
+
+      Test::deleteAll('id>:id',array(':id'=>0));
+    }
 	public function actionModel(){
 		//查询数据 and sql 注入
 		// $sql="select * from test where id=1"." or 1=1";
