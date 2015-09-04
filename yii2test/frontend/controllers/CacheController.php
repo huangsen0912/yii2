@@ -2,6 +2,29 @@
 namespace frontend\controllers;
 use yii\web\Controller;
 class CacheController extends Controller{
+
+	public function actionDepend(){
+		//文件依赖
+		 $cache = \YII::$app->cache;
+		// $dependency = new \yii\caching\FileDependency(['fileName'=>'dependency.txt']);
+		
+
+		//表达式依赖
+		// $dependency = new \yii\caching\ExpressionDependency(
+		// 	['expression'=>'\yii::$app->request->get("name")']
+		// 	);
+
+		//数据库数据依赖
+		 $dependency = new \yii\caching\DBDependency(
+		 	['sql'=>'select count(*) from yii.order']
+		 	);
+
+
+		//$cache->set('file_key','helloworld',3000,$dependency);
+		var_dump( $cache->get('file_key'));
+
+
+	}
 	public function actionIndex(){
 		//缓存的几种方式：文件，nosql，mysql
 		//yii\yii2test\common\config\main.php
