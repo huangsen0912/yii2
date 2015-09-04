@@ -6,6 +6,12 @@ use yii\web\Controller;
 use yii\web\Cookie;
 use app\models\Test;
   class IndexController extends Controller{
+    public function actionUpdate(){
+      //数据库表->一条数据对象->save()方法
+      $result=Test::find()->where(['id'=>5])->one();
+      $result->title="helloworld";
+      $result->save();
+    }
     public function actionInsert(){
         //Test->实例obj对象->save方法转化为数据->db
       $test = new Test();
