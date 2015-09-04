@@ -5,6 +5,23 @@ namespace frontend\controllers;
 use yii\web\Controller;
 use yii\web\Cookie;
   class IndexController extends Controller{
+	//public $layout='common.php';
+  	public function actionView(){
+  		//里面有javascript代码，要调用Html::encode转换实体
+  		$hello_str="hello god <script>alert(123);</script>";
+  		$arr = array(4,5);
+  		//创建一个数组
+  		$data = array();
+  		//把需要传递的数据封装到数组中
+  		$data['data_hello_str']=$hello_str;
+  		$data['data_array']=$arr;
+  		
+  		return $this->renderPartial('view',$data);
+  		
+  		//return $this->render('view',$data);//$content中
+
+  	}
+
 
   	public function actionIndex(){
 
