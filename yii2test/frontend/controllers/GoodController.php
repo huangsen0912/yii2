@@ -5,6 +5,27 @@
 	use app\models\Order;
 	class GoodController extends Controller{
 
+		public function actionXn(){
+			//关联查询性能的问题
+			//1、查询缓存
+			$customer=Customer::find()->where(['id'=>1])->one();
+			$orders=$customer->orders;//select * from customer where id ...
+			$order=Order::find()->where(['id'=>1])->one();
+			$order->gid=99;
+			$order->save();
+			//unset($customer->order);
+			$orders2=$customer->orders; //不去执行sql
+			//var_dump($orders2);
+			//var_dump($orders);
+
+			//2,执行问题
+			$customers = Customer::find()->with('orders')->all();
+			foreach ($customers as  $customer) {
+				$orders=$customer->orders;//hasMany(Order::className(),['cid'=>'id'])->asArray()->all();
+				var_dump($orders);
+			}
+
+		}
 		public function actionIndex(){
 			//一个顾客有多少订单
 			$customer=Customer::find()->where(['id'=>1])->one();
