@@ -5,22 +5,48 @@ class CacheController extends Controller{
 		/**
 		 * 页面缓存
 		 */
-	public function behaviors(){
-		//先于操作执行
-		//echo '1';
-		return [
-			[
-				'class'=>'yii\filters\PageCache',
-				'only'=>['index'],
-				'duration'=>1000,
-				'dependency'=>[
-					'class'=>'yii\caching\FileDependency',
-					'fileName'=>'dependency.txt',
-				]
-			]
-		];
-	}
-
+	// public function behaviors(){
+	// 	//先于操作执行
+	// 	//echo '1';
+	// 	return [
+	// 		[
+	// 			'class'=>'yii\filters\PageCache',
+	// 			'only'=>['index'],
+	// 			'duration'=>1000,
+	// 			'dependency'=>[
+	// 				'class'=>'yii\caching\FileDependency',
+	// 				'fileName'=>'dependency.txt',
+	// 			]
+	// 		]
+	// 	];
+	// }
+		/**
+		 * http缓存
+		 * 返回响应头
+		 * 1，lastModified如果文件修改时间改变会看etag内容标志
+		 * 2，etag看文件内容是否相同，如果相同返回缓存
+		 */
+		public function behaviors(){
+			return [
+					[
+						'class'=>'yii\filters\HttpCache',
+						// 'lastModified'=>function(){
+						// 	return 14325555555;
+						// 	},
+						// 'etagSeed'=>function(){
+						// 	return 'etagSeed';
+						// }
+						'lastModified'=>function(){
+							return filemtime('dependency.txt');
+						},
+						'etagSeed'=>function(){
+							$tp=fopen('dependency.txt','r');
+							$title=fgets($tp);
+							return $title;
+						}
+					]
+			];
+		}
 
 	public function actionPart(){
 		echo '6';
